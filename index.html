@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Array Operations</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        margin-bottom: 10px;
+    }
+    pre {
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+<body>
+
+<h2>Операції над масивами</h2>
+
+<div id="output"></div>
+
+<script>
+    // Генерування випадкових масивів
+    let A = generateRandomArray(10);
+    let B = generateRandomArray(10);
+    let C = [];
+
+    // Обчислення масиву C за вказаною формулою
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] !== B[i]) {
+            C.push(1 / (A[i] - B[i]));
+        } else if (A[i] === B[i]) {
+            C.push(1);
+        }
+    }
+
+    console.log(C)
+
+    // Виведення вхідних масивів А, В та вихідного масиву C
+    document.getElementById('output').innerHTML += "<h3>Вхідні масиви:</h3>";
+    document.getElementById('output').innerHTML += "<pre>A: " + JSON.stringify(A) + "</pre>";
+    document.getElementById('output').innerHTML += "<pre>B: " + JSON.stringify(B) + "</pre>";
+    document.getElementById('output').innerHTML += "<pre>C: " + JSON.stringify(C) + "</pre>";
+
+    // Пошук максимального елементу у масиві C та першого елементу
+    let maxIndex = C.indexOf(Math.max(...C));
+    let firstElement = C[0];
+
+    // Поміняти місцями максимальний елемент і перший елемент у масиві C
+    C[0] = C[maxIndex];
+    C[maxIndex] = firstElement;
+
+    // Виведення масиву C після перестановки
+    document.getElementById('output').innerHTML += "<h3>Масив C після заміни місцями максимального та першого елементів:</h3>";
+    document.getElementById('output').innerHTML += "<pre>C: " + JSON.stringify(C) + "</pre>";
+
+    // Сортування масиву C у порядку зростання методом бульбашки
+    for (let i = 0; i < C.length - 1; i++) {
+        for (let j = 0; j < C.length - i - 1; j++) {
+            if (C[j] > C[j + 1]) {
+                let temp = C[j];
+                C[j] = C[j + 1];
+                C[j + 1] = temp;
+            }
+        }
+    }
+
+    // Виведення відсортованого масиву C
+    document.getElementById('output').innerHTML += "<h3>Масив C відсортовано за зростанням (бульбашкове сортування):</h3>";
+    document.getElementById('output').innerHTML += "<pre>C: " + JSON.stringify(C) + "</pre>";
+
+    // Функція для генерації випадкового масиву заданої довжини
+    function generateRandomArray(length) {
+        let randomArray = [];
+        for (let i = 0; i < length; i++) {
+            randomArray.push(Math.floor(Math.random() * 100)); // Генеруємо числа від 0 до 100
+        }
+        return randomArray;
+    }
+
+    console.log(C)
+</script>
+
+</body>
+</html>
